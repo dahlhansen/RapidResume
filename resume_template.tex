@@ -1,0 +1,176 @@
+%-------------------------
+% Resume in LaTeX Template
+% Author: Jake Gutierrez (Modified for Project Tech Stack on Same Line)
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+%-------------------------
+% Custom Jake Gutierrez commands
+{% raw %}
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+{% endraw %}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape {{ name | replace("&", "\&") }} } \\ \vspace{1pt}
+    \small {{ phone }} $|$
+    \href{mailto:{{ email | replace("&", "\&") }}}{\underline{ {{ email }} }} $|$
+    \href{https://linkedin.com/in/{{ linkedin | replace("&", "\&") }}}{\underline{linkedin.com/in/{{ linkedin }}}} $|$
+    \href{https://github.com/{{ github | replace("&", "\&") }}}{\underline{github.com/{{ github }}}}
+\end{center}
+
+%-----------EDUCATION-----------
+{% if education %}
+\section{Education}
+\resumeSubHeadingListStart
+{% for edu in education %}
+    \resumeSubheading
+        { {{ edu.institution | replace("&", "\&") }} }
+        { {{ edu.location | replace("&", "\&") }} }
+        { {{ edu.degree | replace("&", "\&") }} }
+        { {{ edu.dates | replace("&", "\&") }} }
+    \resumeItemListStart
+        {% for detail in edu.details %}
+            \resumeItem{ {{ detail | replace("&", "\&") }} }
+        {% endfor %}
+    \resumeItemListEnd
+{% endfor %}
+\resumeSubHeadingListEnd
+{% endif %}
+
+%-----------TECHNICAL SKILLS-----------
+{% if skills %}
+\section{Technical Skills}
+\resumeSubHeadingListStart
+{% for skill in skills %}
+    \item
+    {\textbf{ {{ skill.category | replace("&", "\&") }}}: {{ skill.entries | join(', ') | replace("&", "\&") }}}
+{% endfor %}
+\resumeSubHeadingListEnd
+{% endif %}
+
+%-----------PROJECTS-----------
+\section{Projects}
+\resumeSubHeadingListStart
+{% for project in projects %}
+\resumeProjectHeading
+    {\textbf{ {{ project.title }} } \quad $|$ \quad \emph{ {{ project.tech_stack }} }}{ {{ project.dates }} }
+    \resumeItemListStart
+        {% for bullet in project.bullets %}
+        \resumeItem{ {{ bullet }} }
+        {% endfor %}
+    \resumeItemListEnd
+{% endfor %}
+\resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+{% if experiences %}
+\section{Experience}
+\resumeSubHeadingListStart
+{% for exp in experiences %}
+    \resumeSubheading
+        { {{ exp.role | replace("&", "\&") }} }
+        { {{ exp.dates | replace("&", "\&") }} }
+        { {{ exp.company | replace("&", "\&") }} }
+        { {{ exp.location | replace("&", "\&") }} }
+    \resumeItemListStart
+        {% for item in exp.details %}
+            \resumeItem{ {{ item | replace("&", "\&") }} }
+        {% endfor %}
+    \resumeItemListEnd
+{% endfor %}
+\resumeSubHeadingListEnd
+{% endif %}
+
+%-----------CO-CURRICULAR ACTIVITIES-----------
+{% if activities %}
+\section{Co-Curricular Activities}
+\resumeSubHeadingListStart
+{% for activity in activities %}
+    \resumeSubheading
+        { {{ activity.title | replace("&", "\&") }} }
+        { {{ activity.dates | replace("&", "\&") }} }
+        { {{ activity.organization | replace("&", "\&") }} }
+        { {{ activity.location | replace("&", "\&") }} }
+    \resumeItemListStart
+        {% for item in activity.details %}
+            \resumeItem{ {{ item | replace("&", "\&") }} }
+        {% endfor %}
+    \resumeItemListEnd
+{% endfor %}
+\resumeSubHeadingListEnd
+{% endif %}
+
+\end{document}
