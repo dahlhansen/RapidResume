@@ -1,15 +1,14 @@
 import SwiftUI
 
-struct EducationView: View {
+struct ExperienceView: View {
     
     @EnvironmentObject var vm: ResumeViewModel
     
-    @State private var educations: [EducationEntry] = []
-    @State private var institution = ""
+    @State private var experiences: [ExperienceEntry] = []
+    @State private var role = ""
+    @State private var company = ""
     @State private var location = ""
-    @State private var degree = ""
     @State private var dates = ""
-    @State private var detailsList: [String] = []
     @State private var detail1 = ""
     @State private var detail2 = ""
     @State private var detail3 = ""
@@ -21,27 +20,26 @@ struct EducationView: View {
             ScrollView {
                 VStack(spacing: 15) {
                     
-                    Text("Education Details")
+                    Text("Work Experience")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Text("Institution Name")
+                    Text("Job Title / Role")
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Enter Institution Name", text: $institution)
-                        
+                    TextField("Enter Role (e.g., Software Developer)", text: $role)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    Text("Degree Name")
+                    Text("Company Name")
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Enter Degree Name", text: $degree)
+                    TextField("Company Name (e.g., Google, RBC)", text: $company)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
@@ -51,61 +49,61 @@ struct EducationView: View {
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Where was it located", text: $location)
+                    TextField("Enter Location (e.g., Toronto, ON)", text: $location)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    Text("When?")
+                    Text("Dates")
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Jan. 2023 -- May. 2026", text: $dates)
+                    TextField("Feb. 2024 -- Present", text: $dates)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    Text("Details?")
+                    Text("Job Responsibilities")
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Add your first detail bullet?", text: $detail1)
+                    TextField("First Responsibility", text: $detail1)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    TextField("Add your second detail bullet?", text: $detail2)
+                    TextField("Second Responsibility", text: $detail2)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    TextField("Add your third detail bullet?", text: $detail3)
+                    TextField("Third Responsibility", text: $detail3)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
                     Button(action: {
-                        detailsList = [detail1, detail2, detail3].filter { !$0.isEmpty }
+                        let details = [detail1, detail2, detail3].filter { !$0.isEmpty }
                         
-                        let education = EducationEntry(institution: institution, location: location, degree: degree, dates: dates, details: detailsList)
-                        
-                        educations.append(education)
-                        
-                        institution = ""
-                        location = ""
-                        degree = ""
-                        dates = ""
-                        detailsList = []
-                        detail1 = ""
-                        detail2 = ""
-                        detail3 = ""
+                        if !role.isEmpty && !company.isEmpty && !location.isEmpty && !dates.isEmpty && !details.isEmpty {
+                            let experience = ExperienceEntry(role: role, dates: dates, company: company, location: location, details: details)
+                            experiences.append(experience)
+                            
+                            role = ""
+                            company = ""
+                            location = ""
+                            dates = ""
+                            detail1 = ""
+                            detail2 = ""
+                            detail3 = ""
+                        }
                     }) {
-                        Text("Add Degree")
+                        Text("Add Experience")
                             .padding()
                             .font(.headline)
                             .foregroundColor(.white)
@@ -117,19 +115,20 @@ struct EducationView: View {
                     
                     Divider()
 
-                    if !educations.isEmpty {
-                        Text("Your Education Entries")
+                    /// **Experience List (Inside ScrollView)**
+                    if !experiences.isEmpty {
+                        Text("Your Work Experience")
                             .font(.title2)
                             .fontWeight(.bold)
                             .padding(.top)
 
                         VStack(spacing: 10) {
-                            ForEach(educations.indices, id: \.self) { index in
-                                EducationRow(education: educations[index])
+                            ForEach(experiences.indices, id: \.self) { index in
+                                ExperienceRow(experience: experiences[index])
                                     .gesture(DragGesture(minimumDistance: 50)
                                         .onEnded { _ in
                                             withAnimation {
-                                                deleteEducation(at: index)
+                                                deleteExperience(at: index)
                                             }
                                         }
                                     )
@@ -141,11 +140,8 @@ struct EducationView: View {
                     Spacer()
 
                     Button(action: {
-                        
-                        vm.resume.education = educations
-                        
+                        vm.resume.experiences = experiences
                         navigateNext = true
-                        
                         print(vm.resume)
                     }) {
                         Text("Next")
@@ -158,7 +154,7 @@ struct EducationView: View {
                             .shadow(radius: 5)
                     }
                     .navigationDestination(isPresented: $navigateNext) {
-                        SkillView()
+                        ActivitiesView()
                     }
                     .padding(.bottom)
                 }
@@ -167,25 +163,28 @@ struct EducationView: View {
         }
     }
     
-    private func deleteEducation(at index: Int) {
-        educations.remove(at: index)
+    private func deleteExperience(at index: Int) {
+        experiences.remove(at: index)
     }
 }
 
-struct EducationRow: View {
-    var education: EducationEntry
+struct ExperienceRow: View {
+    var experience: ExperienceEntry
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(education.degree)
+            Text(experience.role)
                 .font(.headline)
                 .foregroundColor(.white)
-            Text(education.institution)
+            Text(experience.company)
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.8))
-            Text(education.dates)
+            Text(experience.dates)
                 .font(.footnote)
                 .foregroundColor(.white.opacity(0.6))
+            Text(experience.details.joined(separator: "\n• "))
+                .font(.subheadline)
+                .foregroundColor(.white.opacity(0.9))
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)

@@ -1,18 +1,16 @@
 import SwiftUI
 
-struct EducationView: View {
+struct ProjectsView: View {
     
     @EnvironmentObject var vm: ResumeViewModel
     
-    @State private var educations: [EducationEntry] = []
-    @State private var institution = ""
-    @State private var location = ""
-    @State private var degree = ""
+    @State private var projects: [ProjectEntry] = []
+    @State private var title = ""
+    @State private var techStack = ""
     @State private var dates = ""
-    @State private var detailsList: [String] = []
-    @State private var detail1 = ""
-    @State private var detail2 = ""
-    @State private var detail3 = ""
+    @State private var bullet1 = ""
+    @State private var bullet2 = ""
+    @State private var bullet3 = ""
     @State private var navigateNext = false
     
     var body: some View {
@@ -21,91 +19,79 @@ struct EducationView: View {
             ScrollView {
                 VStack(spacing: 15) {
                     
-                    Text("Education Details")
+                    Text("Projects")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Text("Institution Name")
+                    Text("Project Title")
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Enter Institution Name", text: $institution)
-                        
+                    TextField("Enter Project Title", text: $title)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    Text("Degree Name")
+                    Text("Tech Stack")
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Enter Degree Name", text: $degree)
+                    TextField("Technologies Used (e.g., Swift, Firebase, API)", text: $techStack)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    Text("Location")
+                    Text("Dates")
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Where was it located", text: $location)
+                    TextField("Sept. 2024 -- Dec. 2024", text: $dates)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    Text("When?")
+                    Text("Project Highlights")
                         .font(.headline)
                         .foregroundColor(.gray)
 
-                    TextField("Jan. 2023 -- May. 2026", text: $dates)
+                    TextField("First Bullet Point", text: $bullet1)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    Text("Details?")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Add your first detail bullet?", text: $detail1)
+                    TextField("Second Bullet Point", text: $bullet2)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
-                    TextField("Add your second detail bullet?", text: $detail2)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    TextField("Add your third detail bullet?", text: $detail3)
+                    TextField("Third Bullet Point", text: $bullet3)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(4)
                         .shadow(radius: 3)
 
                     Button(action: {
-                        detailsList = [detail1, detail2, detail3].filter { !$0.isEmpty }
+                        let bulletPoints = [bullet1, bullet2, bullet3].filter { !$0.isEmpty }
                         
-                        let education = EducationEntry(institution: institution, location: location, degree: degree, dates: dates, details: detailsList)
-                        
-                        educations.append(education)
-                        
-                        institution = ""
-                        location = ""
-                        degree = ""
-                        dates = ""
-                        detailsList = []
-                        detail1 = ""
-                        detail2 = ""
-                        detail3 = ""
+                        if !title.isEmpty && !techStack.isEmpty && !dates.isEmpty && !bulletPoints.isEmpty {
+                            let project = ProjectEntry(title: title, tech_stack: techStack, dates: dates, bullets: bulletPoints)
+                            projects.append(project)
+                            
+                            title = ""
+                            techStack = ""
+                            dates = ""
+                            bullet1 = ""
+                            bullet2 = ""
+                            bullet3 = ""
+                        }
                     }) {
-                        Text("Add Degree")
+                        Text("Add Project")
                             .padding()
                             .font(.headline)
                             .foregroundColor(.white)
@@ -117,19 +103,20 @@ struct EducationView: View {
                     
                     Divider()
 
-                    if !educations.isEmpty {
-                        Text("Your Education Entries")
+                    /// **Projects List (Inside ScrollView)**
+                    if !projects.isEmpty {
+                        Text("Your Projects")
                             .font(.title2)
                             .fontWeight(.bold)
                             .padding(.top)
 
                         VStack(spacing: 10) {
-                            ForEach(educations.indices, id: \.self) { index in
-                                EducationRow(education: educations[index])
+                            ForEach(projects.indices, id: \.self) { index in
+                                ProjectRow(project: projects[index])
                                     .gesture(DragGesture(minimumDistance: 50)
                                         .onEnded { _ in
                                             withAnimation {
-                                                deleteEducation(at: index)
+                                                deleteProject(at: index)
                                             }
                                         }
                                     )
@@ -141,11 +128,8 @@ struct EducationView: View {
                     Spacer()
 
                     Button(action: {
-                        
-                        vm.resume.education = educations
-                        
+                        vm.resume.projects = projects
                         navigateNext = true
-                        
                         print(vm.resume)
                     }) {
                         Text("Next")
@@ -158,7 +142,7 @@ struct EducationView: View {
                             .shadow(radius: 5)
                     }
                     .navigationDestination(isPresented: $navigateNext) {
-                        SkillView()
+                        ExperienceView()
                     }
                     .padding(.bottom)
                 }
@@ -167,25 +151,29 @@ struct EducationView: View {
         }
     }
     
-    private func deleteEducation(at index: Int) {
-        educations.remove(at: index)
+    private func deleteProject(at index: Int) {
+        projects.remove(at: index)
     }
 }
 
-struct EducationRow: View {
-    var education: EducationEntry
+/// **Styled Project List Row**
+struct ProjectRow: View {
+    var project: ProjectEntry
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(education.degree)
+            Text(project.title)
                 .font(.headline)
                 .foregroundColor(.white)
-            Text(education.institution)
+            Text(project.tech_stack)
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.8))
-            Text(education.dates)
+            Text(project.dates)
                 .font(.footnote)
                 .foregroundColor(.white.opacity(0.6))
+            Text(project.bullets.joined(separator: "\n• "))
+                .font(.subheadline)
+                .foregroundColor(.white.opacity(0.9))
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
