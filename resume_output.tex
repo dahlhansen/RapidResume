@@ -1,0 +1,229 @@
+%-------------------------
+% Resume in LaTeX Template
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+%-------------------------
+% Custom Commands - Fixed Jinja2 Issues
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape papa } \\ \vspace{1pt}
+    \small 416-200-0204 $|$
+    \href{mailto:hansenf@sheridancollege.ca}{\underline{ hansenf@sheridancollege.ca }} $|$
+    \href{https://linkedin.com/in/frederik-dahl-hansen}{\underline{linkedin.com/in/frederik-dahl-hansen}} $|$
+    \href{https://github.com/dahlhansen}{\underline{github.com/dahlhansen}}
+\end{center}
+
+%-----------EDUCATION-----------
+
+\section{Education}
+\resumeSubHeadingListStart
+
+    \resumeSubheading
+        { Sheridan College }
+        { Oakville, ON }
+        { Bachelor of Computer Science (Mobile Computing) }
+        { Jan. 2023 -- May 2026 }
+    \resumeItemListStart
+        
+            \resumeItem{ GPA: 3.4 }
+        
+            \resumeItem{ Expected Graduation: December 2026 }
+        
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+%-----------TECHNICAL SKILLS-----------
+
+\section{Technical Skills}
+\resumeSubHeadingListStart
+
+    \item
+    {\textbf{ Languages}: Swift, Java, Python, C++, JavaScript, TypeScript, SQL, HTML/CSS, Bash}
+
+    \item
+    {\textbf{ Frameworks}: React, React Native, Angular, Vite, Node.js, ASP.NET, Flask}
+
+    \item
+    {\textbf{ Mobile Development}: SwiftUI, Kotlin, Flutter, Jetpack Compose}
+
+    \item
+    {\textbf{ Developer Tools}: Git, Firebase, Visual Studio Code, Xcode, IntelliJ, Postman, Swagger}
+
+    \item
+    {\textbf{ Databases}: PostgreSQL, MongoDB, Firebase Firestore}
+
+    \item
+    {\textbf{ Other Skills}: Agile Principles, SDLC, Web API Development, Shell Scripting, RESTful APIs, Unit Testing}
+
+\resumeSubHeadingListEnd
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+\resumeSubHeadingListStart
+
+\resumeProjectHeading
+    {\textbf{ Nova Weather } 
+    \quad $|$ \quad 
+    \emph{ Swift, Firebase Authentication, Gemini AI, API Integration }}{ 
+    Sept. 2024 -- Dec. 2024 }
+    \resumeItemListStart
+        
+        \resumeItem{ Developed a Swift-based weather app with user creation, weather retrieval, and a favorite locations list. }
+        
+        \resumeItem{ Led UI/UX design, completing the layout in 4 weeks and planning a structured 6-week development phase. }
+        
+        \resumeItem{ Integrated Firebase Authentication for secure login, real-time validation, and encrypted data storage. }
+        
+        \resumeItem{ Optimized navigation and user flow, reducing browsing time by 30\%. }
+        
+    \resumeItemListEnd
+
+\resumeProjectHeading
+    {\textbf{ Sheridan Golf Club Website } 
+    \quad $|$ \quad 
+    \emph{ React, Vite, CSS Modules - Available at SheridanGolf.ca }}{ 
+    Feb. 2025 -- Present }
+    \resumeItemListStart
+        
+        \resumeItem{ Developed a responsive web app using React and Vite with 2 fellow students for the Sheridan Golf Club, enhancing user engagement and accessibility across devices. }
+        
+        \resumeItem{ Styled components using CSS Modules, ensuring modularity and preventing style conflicts. }
+        
+        \resumeItem{ Integrated a contact form with email notifications, streamlining response handling by 40\%. }
+        
+        \resumeItem{ Optimized page load times using Vite’s bundling and code-splitting strategies, improving performance. }
+        
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+
+\section{Experience}
+\resumeSubHeadingListStart
+
+    \resumeSubheading
+        { Agent Services Coordinator }
+        { Feb. 2024 -- Present }
+        { Sutton Group Quantum Realty Inc. }
+        { Oakville, ON }
+    \resumeItemListStart
+        
+            \resumeItem{ Manage the front desk efficiently, serving as the first point of contact for visitors, clients, and agents. }
+        
+            \resumeItem{ Implemented process improvements that enhanced front desk efficiency within five months. }
+        
+            \resumeItem{ Audited and corrected property listings, ensuring 100\% accuracy on real estate boards. }
+        
+            \resumeItem{ Assisted in onboarding new staff by providing training on internal systems and listing processes. }
+        
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+%-----------CO-CURRICULAR ACTIVITIES-----------
+
+\section{Co-Curricular Activities}
+\resumeSubHeadingListStart
+
+    \resumeSubheading
+        { President \& Founder }
+        { Oct. 2024 -- Present }
+        { Sheridan Golf Club }
+        { Oakville, ON }
+    \resumeItemListStart
+        
+            \resumeItem{ Founded the club in 2024 with four other golf enthusiasts, collaborating with Sheridan’s student leadership to establish its mission and drive engagement. }
+        
+            \resumeItem{ Doubled membership within the first year through strategic outreach initiatives. }
+        
+            \resumeItem{ Led event planning efforts, fostering a strong networking community for golf enthusiasts. }
+        
+            \resumeItem{ Organized skill development sessions and events to enhance member engagement and participation. }
+        
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+\end{document}
