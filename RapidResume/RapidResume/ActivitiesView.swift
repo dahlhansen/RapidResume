@@ -141,8 +141,9 @@ struct ActivitiesView: View {
 
                     Button(action: {
                         vm.resume.activities = activities
-                        navigateNext = true
                         print(vm.resume)
+                        navigateNext = true
+                        
                     }) {
                         Text("Finish")
                             .padding()

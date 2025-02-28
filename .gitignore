@@ -1,0 +1,33 @@
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+# Ignore LaTeX generated files
+*.aux
+*.log
+*.out
+*.pdf
+*.tex
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Xcode build and workspace files
+*.xcworkspace/
+*.xcuserdata/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+xcshareddata/
+
+# Ignore API generated files
+resume_output.*
