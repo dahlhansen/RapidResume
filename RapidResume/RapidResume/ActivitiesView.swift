@@ -154,7 +154,7 @@ struct ActivitiesView: View {
                             .shadow(radius: 5)
                     }
                     .navigationDestination(isPresented: $navigateNext) {
-                        
+                        FinalizeResumeView()
                     }
                     .padding(.bottom)
                 }
