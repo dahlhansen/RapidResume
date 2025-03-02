@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.25)  28 FEB 2025 10:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.25)  1 MAR 2025 20:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -362,20 +362,14 @@ L3 programming layer <2024-02-20>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-Package rerunfilecheck Warning: File `resume_output.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `resume_output.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  C10EC3C9FE03CAD8C110218850AE7D4B;556.
+Package rerunfilecheck Info: File `resume_output.out' has not changed.
+(rerunfilecheck)             Checksum: C10EC3C9FE03CAD8C110218850AE7D4B;556.
  ) 
 Here is how much of TeX's memory you used:
- 10577 strings out of 474116
- 166141 string characters out of 5743682
- 1942187 words of memory out of 5000000
- 32816 multiletter control sequences out of 15000+600000
+ 10583 strings out of 474116
+ 166198 string characters out of 5743682
+ 1957187 words of memory out of 5000000
+ 32822 multiletter control sequences out of 15000+600000
  563661 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,11n,79p,260b,456s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -386,10 +380,10 @@ Here is how much of TeX's memory you used:
 usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
 sr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr
 /local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on resume_output.pdf (1 page, 69227 bytes).
+Output written on resume_output.pdf (1 page, 103980 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
+ 74 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
  7 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
