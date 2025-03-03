@@ -18,151 +18,156 @@ struct EducationView: View {
     var body: some View {
         
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 15) {
-                    
-                    Text("Education Details")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Text("Institution Name")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Enter Institution Name", text: $institution)
+            
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+                
+                ScrollView {
+                    VStack(spacing: 15) {
                         
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Text("Degree Name")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Enter Degree Name", text: $degree)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Text("Location")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Where was it located", text: $location)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Text("When?")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Jan. 2023 -- May. 2026", text: $dates)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Text("Details?")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Add your first detail bullet?", text: $detail1)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    TextField("Add your second detail bullet?", text: $detail2)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    TextField("Add your third detail bullet?", text: $detail3)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Button(action: {
-                        detailsList = [detail1, detail2, detail3].filter { !$0.isEmpty }
+                        Text("Education Details")
+                            .font(.title)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                            .padding(.top, 20)
                         
-                        let education = EducationEntry(institution: institution, location: location, degree: degree, dates: dates, details: detailsList)
+                        Spacer()
                         
-                        educations.append(education)
+                        TextField("Institution Name", text: $institution)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Degree Name", text: $degree)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
                         
-                        institution = ""
-                        location = ""
-                        degree = ""
-                        dates = ""
-                        detailsList = []
-                        detail1 = ""
-                        detail2 = ""
-                        detail3 = ""
-                    }) {
-                        Text("Add Degree")
-                            .padding()
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: 200)
-                            .background(Color.teal)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                    }
-                    
-                    Divider()
+                        TextField("Location", text: $location)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
 
-                    if !educations.isEmpty {
-                        Text("Your Education Entries")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .padding(.top)
+                        TextField("When? (e.g., Jan. 2023 - May. 2026)", text: $dates)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+                        
+                        TextField("First Detail", text: $detail1)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
 
-                        VStack(spacing: 10) {
-                            ForEach(educations.indices, id: \.self) { index in
-                                EducationRow(education: educations[index])
-                                    .gesture(DragGesture(minimumDistance: 50)
-                                        .onEnded { _ in
-                                            withAnimation {
-                                                deleteEducation(at: index)
+                        TextField("Second Detail", text: $detail2)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Third Detail", text: $detail3)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        Button(action: {
+                            detailsList = [detail1, detail2, detail3].filter { !$0.isEmpty }
+                            
+                            let education = EducationEntry(institution: institution, location: location, degree: degree, dates: dates, details: detailsList)
+                            
+                            educations.append(education)
+                            
+                            institution = ""
+                            location = ""
+                            degree = ""
+                            dates = ""
+                            detailsList = []
+                            detail1 = ""
+                            detail2 = ""
+                            detail3 = ""
+                        }) {
+                            Text("Add Degree")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: 200)
+                                .background(Color.black)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                        }
+                        .padding(.top, 10)
+                        
+                        Divider()
+                            .padding(.vertical, 10)
+                        
+                        if !educations.isEmpty {
+                            Text("Your Education Entries")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .padding(.top)
+                                .foregroundColor(.electricYellow)
+                            
+                            VStack(spacing: 10) {
+                                ForEach(educations.indices, id: \.self) { index in
+                                    EducationRow(education: educations[index])
+                                        .gesture(DragGesture(minimumDistance: 50)
+                                            .onEnded { _ in
+                                                withAnimation {
+                                                    deleteEducation(at: index)
+                                                }
                                             }
-                                        }
-                                    )
-                                    .transition(.slide)
+                                        )
+                                        .transition(.slide)
+                                }
                             }
                         }
-                    }
-
-                    Spacer()
-
-                    Button(action: {
                         
-                        vm.resume.education = educations
+                        Divider()
                         
-                        navigateNext = true
-                        
-                        print(vm.resume)
-                    }) {
-                        Text("Next")
-                            .padding()
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: 200)
-                            .background(Color.orange)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
+                        Button(action: {
+                            vm.resume.education = educations
+                            navigateNext = true
+                        }) {
+                            Text("Next")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(.black)
+                                .frame(maxWidth: 200)
+                                .background(Color.electricYellow)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                        }
+                        .navigationDestination(isPresented: $navigateNext) {
+                            SkillView()
+                        }
+                        .padding(.bottom, 20)
                     }
-                    .navigationDestination(isPresented: $navigateNext) {
-                        SkillView()
-                    }
-                    .padding(.bottom)
+                    .padding(.top, 10)
                 }
-                .padding()
             }
         }
     }
@@ -172,6 +177,7 @@ struct EducationView: View {
     }
 }
 
+// **Education Row View**
 struct EducationRow: View {
     var education: EducationEntry
 
@@ -179,19 +185,23 @@ struct EducationRow: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(education.degree)
                 .font(.headline)
-                .foregroundColor(.white)
+                .foregroundColor(.darkBlue)
             Text(education.institution)
                 .font(.subheadline)
-                .foregroundColor(.white.opacity(0.8))
+                .foregroundColor(.darkBlue.opacity(0.8))
             Text(education.dates)
                 .font(.footnote)
-                .foregroundColor(.white.opacity(0.6))
+                .foregroundColor(.darkBlue.opacity(0.6))
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(LinearGradient(gradient: Gradient(colors: [Color.teal.opacity(0.8), Color.orange.opacity(0.7)]), startPoint: .leading, endPoint: .trailing))
+        .background(Color.paleBlue)
         .cornerRadius(12)
         .shadow(radius: 3)
         .padding(.horizontal)
     }
+}
+
+#Preview {
+    EducationView()
 }

@@ -22,78 +22,101 @@ struct InitialEntryView: View {
     var body: some View {
         
         NavigationStack {
-            VStack {
+            
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
                 
-                Text("Let's get some of the basics down")
-                
-                Spacer()
-                
-                Text("Enter Your Name")
-                    .font(.headline)
-                    .foregroundColor(.gray)
-                TextField("Enter Name", text: $name)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .shadow(radius: 3)
-                
-                TextField("Enter Phone Number", text: $phoneNumber)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .shadow(radius: 3)
-                
-                TextField("Enter desired email", text: $email)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .shadow(radius: 3)
-                
-                TextField("linkedin.com/in/", text: $linkedIn)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .shadow(radius: 3)
-                TextField("Github.com/", text: $gitHub)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .shadow(radius: 3)
-                
-                Spacer()
-                
-                
-                
+                VStack {
                     
-                Button(action: {
-                    vm.resume.name = name
-                    vm.resume.phone = phoneNumber
-                    vm.resume.email = email
-                    vm.resume.linkedin = linkedIn
-                    vm.resume.github = gitHub
-                    navigateNext = true
+                    Text("The Basics")
+                        .font(.title)
+                        .fontWeight(.heavy)
+                        .foregroundColor(.black)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        .padding(.top, 10)
                     
-                    print(vm.resume)
+                    Spacer()
+                    
+                    
+                    TextField("Enter Name", text: $name)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .background(Color.white)
+                        .cornerRadius(25)
+                        .shadow(radius: 3)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(Color.darkBlue)
+                    
+                    TextField("Enter Phone Number", text: $phoneNumber)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .background(Color.white)
+                        .cornerRadius(25)
+                        .shadow(radius: 3)
+                        .multilineTextAlignment(.center)
+                    
+                    TextField("Enter desired email", text: $email)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .background(Color.white)
+                        .cornerRadius(25)
+                        .shadow(radius: 3)
+                        .multilineTextAlignment(.center)
+                    
+                    TextField("linkedin.com/in/", text: $linkedIn)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .background(Color.white)
+                        .cornerRadius(25)
+                        .shadow(radius: 3)
+                        .multilineTextAlignment(.center)
+                    
+                    TextField("Github.com/", text: $gitHub)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .background(Color.white)
+                        .cornerRadius(25)
+                        .shadow(radius: 3)
+                        .multilineTextAlignment(.center)
+                    
+                    Spacer()
+                    
+                    
+                    
+                    
+                    Button(action: {
+                        vm.resume.name = name
+                        vm.resume.phone = phoneNumber
+                        vm.resume.email = email
+                        vm.resume.linkedin = linkedIn
+                        vm.resume.github = gitHub
+                        navigateNext = true
+                        
+                        print(vm.resume)
                     }){
                         Text("Next")
                             .padding()
                             .font(.headline)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .frame(maxWidth: 200)
-                            .background(Color.blue)
+                            .background(Color.electricYellow)
                             .cornerRadius(10)
                             .shadow(radius: 5)
                     }
-                
+                    
                     .navigationDestination(isPresented: $navigateNext) {
-                                    EducationView()
+                        EducationView()
                     }
                     
-                
+                    
+                }
+                .padding()
             }
-            .padding()
         }
     }
+}
+
+#Preview {
+    InitialEntryView()
 }
 
 

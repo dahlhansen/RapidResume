@@ -16,137 +16,141 @@ struct ProjectsView: View {
     var body: some View {
         
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 15) {
-                    
-                    Text("Projects")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Text("Project Title")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Enter Project Title", text: $title)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Text("Tech Stack")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Technologies Used (e.g., Swift, Firebase, API)", text: $techStack)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Text("Dates")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Sept. 2024 -- Dec. 2024", text: $dates)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Text("Project Highlights")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("First Bullet Point", text: $bullet1)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    TextField("Second Bullet Point", text: $bullet2)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    TextField("Third Bullet Point", text: $bullet3)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Button(action: {
-                        let bulletPoints = [bullet1, bullet2, bullet3].filter { !$0.isEmpty }
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+                
+                ScrollView {
+                    VStack(spacing: 15) {
                         
-                        if !title.isEmpty && !techStack.isEmpty && !dates.isEmpty && !bulletPoints.isEmpty {
-                            let project = ProjectEntry(title: title, tech_stack: techStack, dates: dates, bullets: bulletPoints)
-                            projects.append(project)
+                        Text("Projects")
+                            .font(.title)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                            .padding(.top, 20)
+                        
+                        Spacer()
+                        
+                        TextField("Project Title", text: $title)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Tech Stack", text: $techStack)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Dates (e.g., Sept. 2024 - Dec. 2024)", text: $dates)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("First Highlight", text: $bullet1)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Second Highlight", text: $bullet2)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Third Highlight", text: $bullet3)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        Button(action: {
+                            let bulletPoints = [bullet1, bullet2, bullet3].filter { !$0.isEmpty }
                             
-                            title = ""
-                            techStack = ""
-                            dates = ""
-                            bullet1 = ""
-                            bullet2 = ""
-                            bullet3 = ""
+                            if !title.isEmpty && !techStack.isEmpty && !dates.isEmpty && !bulletPoints.isEmpty {
+                                let project = ProjectEntry(title: title, tech_stack: techStack, dates: dates, bullets: bulletPoints)
+                                projects.append(project)
+                                
+                                title = ""
+                                techStack = ""
+                                dates = ""
+                                bullet1 = ""
+                                bullet2 = ""
+                                bullet3 = ""
+                            }
+                        }) {
+                            Text("Add Project")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: 200)
+                                .background(Color.black)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
                         }
-                    }) {
-                        Text("Add Project")
-                            .padding()
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: 200)
-                            .background(Color.teal)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                    }
-                    
-                    Divider()
-
-                    /// **Projects List (Inside ScrollView)**
-                    if !projects.isEmpty {
-                        Text("Your Projects")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .padding(.top)
-
-                        VStack(spacing: 10) {
-                            ForEach(projects.indices, id: \.self) { index in
-                                ProjectRow(project: projects[index])
-                                    .gesture(DragGesture(minimumDistance: 50)
-                                        .onEnded { _ in
-                                            withAnimation {
-                                                deleteProject(at: index)
+                        .padding(.top, 10)
+                        
+                        if !projects.isEmpty {
+                            Text("Your Projects")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .padding(.top)
+                                .foregroundColor(.electricYellow)
+                            
+                            VStack(spacing: 10) {
+                                ForEach(projects.indices, id: \.self) { index in
+                                    ProjectRow(project: projects[index])
+                                        .gesture(DragGesture(minimumDistance: 50)
+                                            .onEnded { _ in
+                                                withAnimation {
+                                                    deleteProject(at: index)
+                                                }
                                             }
-                                        }
-                                    )
-                                    .transition(.slide)
+                                        )
+                                        .transition(.slide)
+                                }
                             }
                         }
+                        
+                        Button(action: {
+                            vm.resume.projects = projects
+                            navigateNext = true
+                        }) {
+                            Text("Next")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(.black)
+                                .frame(maxWidth: 200)
+                                .background(Color.electricYellow)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                        }
+                        .navigationDestination(isPresented: $navigateNext) {
+                            ExperienceView()
+                        }
+                        .padding(.bottom, 20)
                     }
-
-                    Spacer()
-
-                    Button(action: {
-                        vm.resume.projects = projects
-                        navigateNext = true
-                        print(vm.resume)
-                    }) {
-                        Text("Next")
-                            .padding()
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: 200)
-                            .background(Color.orange)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                    }
-                    .navigationDestination(isPresented: $navigateNext) {
-                        ExperienceView()
-                    }
-                    .padding(.bottom)
+                    .padding(.top, 10)
                 }
-                .padding()
             }
         }
     }
@@ -164,22 +168,26 @@ struct ProjectRow: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(project.title)
                 .font(.headline)
-                .foregroundColor(.white)
+                .foregroundColor(.darkBlue)
             Text(project.tech_stack)
                 .font(.subheadline)
-                .foregroundColor(.white.opacity(0.8))
+                .foregroundColor(.darkBlue.opacity(0.8))
             Text(project.dates)
                 .font(.footnote)
-                .foregroundColor(.white.opacity(0.6))
+                .foregroundColor(.darkBlue.opacity(0.6))
             Text(project.bullets.joined(separator: "\n• "))
                 .font(.subheadline)
-                .foregroundColor(.white.opacity(0.9))
+                .foregroundColor(.darkBlue.opacity(0.9))
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(LinearGradient(gradient: Gradient(colors: [Color.teal.opacity(0.8), Color.orange.opacity(0.7)]), startPoint: .leading, endPoint: .trailing))
+        .background(Color.paleBlue)
         .cornerRadius(12)
         .shadow(radius: 3)
         .padding(.horizontal)
     }
+}
+
+#Preview {
+    ProjectsView()
 }

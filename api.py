@@ -4,6 +4,7 @@ import jinja2
 from pydantic import BaseModel
 from typing import List
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 
 app = FastAPI()
 
@@ -51,13 +52,20 @@ class Resume(BaseModel):
     experiences: List[ExperienceEntry]
     activities: List[ActivityEntry]
 
-
+#Post request to submit resume
 @app.post("/submit_resume/")
 async def submit_resume(resume: Resume):
     createResume(resume)
     return {"message": "Resume submitted successfully!"}
 
+#Send pdf file to user in frontend
+@app.get("/get_pdf/")
+async def get_pdf():
+    file_path = "resume_output.pdf"
+    return FileResponse(file_path, media_type="application/pdf", filename="resume.pdf")
 
+
+#Function to create resume
 def createResume(data: Resume):
     env = Environment(loader=FileSystemLoader("."))
 

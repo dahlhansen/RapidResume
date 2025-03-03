@@ -14,4 +14,5 @@ struct RapidResumeApp: App {
             ContentView()
         }
     }
+
 }

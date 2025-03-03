@@ -20,119 +20,188 @@ struct SkillView: View {
     var body: some View {
         
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 15) {
-                    
-                    Text("Skills")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Text("Category")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    TextField("Enter Skill Category (e.g., Frameworks)", text: $category)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(4)
-                        .shadow(radius: 3)
-
-                    Text("Skills")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-
-                    Group {
-                        TextField("Skill 1", text: $entry1)
-                        TextField("Skill 2", text: $entry2)
-                        TextField("Skill 3", text: $entry3)
-                        TextField("Skill 4", text: $entry4)
-                        TextField("Skill 5", text: $entry5)
-                        TextField("Skill 6", text: $entry6)
-                        TextField("Skill 7", text: $entry7)
-                        TextField("Skill 8", text: $entry8)
-                        TextField("Skill 9", text: $entry9)
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(4)
-                    .shadow(radius: 3)
-
-                    Button(action: {
-                        let skillEntries = [entry1, entry2, entry3, entry4, entry5, entry6, entry7, entry8, entry9].filter { !$0.isEmpty }
+            
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+                
+                ScrollView {
+                    VStack(spacing: 15) {
                         
-                        if !category.isEmpty && !skillEntries.isEmpty {
-                            let skillEntry = SkillEntry(category: category, entries: skillEntries)
-                            skills.append(skillEntry)
+                        Text("Skills")
+                            .font(.title)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                            .padding(.top, 20)
+                        
+                        Spacer()
+                        
+                        TextField("Skill Category (e.g., Frameworks)", text: $category)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+                        
+                        Rectangle()
+                            .frame(height: 2)
+                            .foregroundColor(Color.darkBlue)
+                            .padding(.horizontal, 40)
+                        
+                        TextField("Skill 1", text: $entry1)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Skill 2", text: $entry2)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Skill 3", text: $entry3)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Skill 4", text: $entry4)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Skill 5", text: $entry5)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Skill 6", text: $entry6)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Skill 7", text: $entry7)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Skill 8", text: $entry8)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        TextField("Skill 9", text: $entry9)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+
+                        Button(action: {
+                            let skillEntries = [entry1, entry2, entry3, entry4, entry5, entry6, entry7, entry8, entry9].filter { !$0.isEmpty }
                             
-                            category = ""
-                            entry1 = ""
-                            entry2 = ""
-                            entry3 = ""
-                            entry4 = ""
-                            entry5 = ""
-                            entry6 = ""
-                            entry7 = ""
-                            entry8 = ""
-                            entry9 = ""
+                            if !category.isEmpty && !skillEntries.isEmpty {
+                                let skillEntry = SkillEntry(category: category, entries: skillEntries)
+                                skills.append(skillEntry)
+                                
+                                category = ""
+                                entry1 = ""
+                                entry2 = ""
+                                entry3 = ""
+                                entry4 = ""
+                                entry5 = ""
+                                entry6 = ""
+                                entry7 = ""
+                                entry8 = ""
+                                entry9 = ""
+                            }
+                        }) {
+                            Text("Save Skill Category")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: 200)
+                                .background(Color.black)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
                         }
-                    }) {
-                        Text("Save Skill Category")
-                            .padding()
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: 200)
-                            .background(Color.teal)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                    }
-                    
-                    Divider()
-
-                    
-                    if !skills.isEmpty {
-                        Text("Your Skills")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .padding(.top)
-
-                        VStack(spacing: 10) {
-                            ForEach(skills.indices, id: \.self) { index in
-                                SkillRow(skill: skills[index])
-                                    .gesture(DragGesture(minimumDistance: 50)
-                                        .onEnded { _ in
-                                            withAnimation {
-                                                deleteSkill(at: index)
+                        .padding(.top, 10)
+                        
+                        Divider()
+                            .padding(.vertical, 10)
+                        
+                        if !skills.isEmpty {
+                            Text("Your Skills")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .padding(.top)
+                                .foregroundColor(.electricYellow)
+                            
+                            VStack(spacing: 10) {
+                                ForEach(skills.indices, id: \.self) { index in
+                                    SkillRow(skill: skills[index])
+                                        .gesture(DragGesture(minimumDistance: 50)
+                                            .onEnded { _ in
+                                                withAnimation {
+                                                    deleteSkill(at: index)
+                                                }
                                             }
-                                        }
-                                    )
-                                    .transition(.slide)
+                                        )
+                                        .transition(.slide)
+                                }
                             }
                         }
+                        
+                        Divider()
+                        
+                        Button(action: {
+                            vm.resume.skills = skills
+                            navigateNext = true
+                        }) {
+                            Text("Next")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(.black)
+                                .frame(maxWidth: 200)
+                                .background(Color.electricYellow)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                        }
+                        .navigationDestination(isPresented: $navigateNext) {
+                            ProjectsView()
+                        }
+                        .padding(.bottom, 20)
                     }
-
-                    Spacer()
-
-                    Button(action: {
-                        vm.resume.skills = skills
-                        navigateNext = true
-                        print(vm.resume)
-                    }) {
-                        Text("Next")
-                            .padding()
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: 200)
-                            .background(Color.orange)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                    }
-                    .navigationDestination(isPresented: $navigateNext) {
-                        ProjectsView()
-                    }
-                    .padding(.bottom)
+                    .padding(.top, 10)
                 }
-                .padding()
             }
         }
     }
@@ -149,16 +218,20 @@ struct SkillRow: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(skill.category)
                 .font(.headline)
-                .foregroundColor(.white)
+                .foregroundColor(.darkBlue)
             Text(skill.entries.joined(separator: ", "))
                 .font(.subheadline)
-                .foregroundColor(.white.opacity(0.8))
+                .foregroundColor(.darkBlue.opacity(0.8))
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(LinearGradient(gradient: Gradient(colors: [Color.teal.opacity(0.8), Color.orange.opacity(0.7)]), startPoint: .leading, endPoint: .trailing))
+        .background(Color.paleBlue)
         .cornerRadius(12)
         .shadow(radius: 3)
         .padding(.horizontal)
     }
+}
+
+#Preview {
+    SkillView()
 }
