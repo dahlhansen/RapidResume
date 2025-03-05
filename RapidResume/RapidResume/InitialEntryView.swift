@@ -56,7 +56,7 @@ struct InitialEntryView: View {
                         TextField("Enter Name", text: $name)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .background(Color.white)
-                            .cornerRadius(25)
+                            .cornerRadius(10)
                             .shadow(radius: 3)
                             .multilineTextAlignment(.center)
                             .foregroundStyle(Color.darkBlue)

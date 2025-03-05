@@ -84,6 +84,9 @@ struct ContentView: View {
             }
         }
         .environmentObject(vm)
+        .navigationTitle("Resume")
+                .navigationBarBackButtonHidden(false)
+                .tint(.yellow)
     }
 }
 
