@@ -17,21 +17,35 @@ struct ProjectsView: View {
         
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
-                               startPoint: .top,
-                               endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
                 
                 ScrollView {
-                    VStack(spacing: 15) {
+                    
+                    Text("Projects")
+                        .fontWeight(.heavy)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
                         
-                        Text("Projects")
-                            .font(.title)
-                            .fontWeight(.heavy)
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
-                            .padding(.top, 20)
+                        .font(.custom("Poppins-Bold", size: 48))
+                        .padding(.bottom, 5)
+                    
+                    Text("What have you developed in your spare time?")
+                        .fontWeight(.heavy)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        
+                        .font(.custom("Poppins-Bold", size: 16))
+                    
+                    VStack(spacing: 20) {
+                        
+                        
                         
                         Spacer()
                         
@@ -101,9 +115,9 @@ struct ProjectsView: View {
                             Text("Add Project")
                                 .padding()
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.darkBlue)
                                 .frame(maxWidth: 200)
-                                .background(Color.black)
+                                .background(Color.paleBlue)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                         }
@@ -160,7 +174,7 @@ struct ProjectsView: View {
     }
 }
 
-/// **Styled Project List Row**
+
 struct ProjectRow: View {
     var project: ProjectEntry
 

@@ -16,26 +16,44 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
-                               startPoint: .top,
-                               endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
 
                 VStack {
+                    
+                    
+                    
+                    Spacer()
                     
                     Image("rrlogo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 190, height: 200)
-                        .padding()
+                    
+                    Text("RAPID RESUME")
+                        .fontWeight(.heavy)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        
+                        .font(.custom("Poppins-Bold", size: 48))
+                        .padding(.bottom, 5)
+                    
+                    
 
-                    Text("Craft Your Resume In Minutes")
-                        .font(.title)
+                    Text("Effortless Resume Creation")
+                    
                         .fontWeight(.heavy)
                         .foregroundColor(.electricYellow)
                         .multilineTextAlignment(.center)
                         .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
-                        .padding(.top, 10)
+                        .padding(.bottom, 50)
+                        .font(.custom("Poppins-Bold", size: 16))
+                    
+                    
                     
                     VStack(spacing: 15) {
                         NavigationLink(destination: InitialEntryView()) {
@@ -44,6 +62,17 @@ struct ContentView: View {
                                 .foregroundColor(Color.paleBlue)
                                 .frame(width: 220, height: 50)
                                 .background(Color.mediumBlue)
+                                .cornerRadius(25)
+                                .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 2)
+                                .padding(.top, 20)
+                        }
+                        
+                        NavigationLink(destination: InitialEntryView()) {
+                            Text("Learn More")
+                                .font(.headline)
+                                .foregroundColor(Color.darkBlue)
+                                .frame(width: 220, height: 50)
+                                .background(Color.paleBlue)
                                 .cornerRadius(25)
                                 .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 2)
                                 .padding(.top, 20)

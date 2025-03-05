@@ -10,14 +10,15 @@ import SwiftUI
 struct FinalizeResumeView: View {
     
     @EnvironmentObject var vm: ResumeViewModel
+    @State private var navigateNext = false
     
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
-                               startPoint: .top,
-                               endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
                 
                 ScrollView {
                     VStack(spacing: 15) {
@@ -183,6 +184,7 @@ struct FinalizeResumeView: View {
                         
                         Button(action: {
                             vm.submitResume(resume: vm.resume)
+                            navigateNext = true
                         }) {
                             Text("Create Resume")
                                 .padding()
@@ -192,6 +194,9 @@ struct FinalizeResumeView: View {
                                 .background(Color.electricYellow)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
+                        }
+                        .navigationDestination(isPresented: $navigateNext) {
+                            ViewResume()
                         }
                         .padding(.bottom, 20)
                     }

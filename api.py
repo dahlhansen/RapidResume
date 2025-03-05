@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from typing import List
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
+import os
 
 app = FastAPI()
 
@@ -59,7 +60,7 @@ async def submit_resume(resume: Resume):
     return {"message": "Resume submitted successfully!"}
 
 #Send pdf file to user in frontend
-@app.get("/get_pdf/")
+@app.get("/get_pdf")
 async def get_pdf():
     file_path = "resume_output.pdf"
     return FileResponse(file_path, media_type="application/pdf", filename="resume.pdf")
@@ -74,18 +75,16 @@ def createResume(data: Resume):
     try:
         rendered_tex = template.render(data)
 
-        # 🔥 Print rendered LaTeX for debugging
-        print("\n==== Rendered LaTeX Template Start ====")
-        print(rendered_tex)
-        print("==== Rendered LaTeX Template End ====\n")
-
         with open("resume_output.tex", "w", encoding="utf-8") as f:
             f.write(rendered_tex)
 
         subprocess.run(["pdflatex", "resume_output.tex"], check=True)
-        print("✅ PDF generated: resume_output.pdf")
+        print("PDF generated: resume_output.pdf")
 
     except jinja2.TemplateSyntaxError as e:
         print(f"Jinja2 Template Error: {e.message}")
         print(f"Problem in File: {e.filename} at Line {e.lineno}")
 
+
+if __name__ == "__main__":
+    os.system("uvicorn api:app --host 0.0.0.0 --port 8000 --reload --log-level debug")

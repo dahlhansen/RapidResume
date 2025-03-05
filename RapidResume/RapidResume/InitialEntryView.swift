@@ -24,59 +24,71 @@ struct InitialEntryView: View {
         NavigationStack {
             
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
-                               startPoint: .top,
-                               endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
                 
                 VStack {
                     
-                    Text("The Basics")
-                        .font(.title)
+                    Text("Personal Info")
                         .fontWeight(.heavy)
-                        .foregroundColor(.black)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
                         .multilineTextAlignment(.center)
                         .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
-                        .padding(.top, 10)
+                        
+                        .font(.custom("Poppins-Bold", size: 48))
+                        .padding(.bottom, 5)
+                    
+                    Text("Let's get the personal info out of the way!")
+                        .fontWeight(.heavy)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        
+                        .font(.custom("Poppins-Bold", size: 16))
                     
                     Spacer()
                     
-                    
-                    TextField("Enter Name", text: $name)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .background(Color.white)
-                        .cornerRadius(25)
-                        .shadow(radius: 3)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(Color.darkBlue)
-                    
-                    TextField("Enter Phone Number", text: $phoneNumber)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .background(Color.white)
-                        .cornerRadius(25)
-                        .shadow(radius: 3)
-                        .multilineTextAlignment(.center)
-                    
-                    TextField("Enter desired email", text: $email)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .background(Color.white)
-                        .cornerRadius(25)
-                        .shadow(radius: 3)
-                        .multilineTextAlignment(.center)
-                    
-                    TextField("linkedin.com/in/", text: $linkedIn)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .background(Color.white)
-                        .cornerRadius(25)
-                        .shadow(radius: 3)
-                        .multilineTextAlignment(.center)
-                    
-                    TextField("Github.com/", text: $gitHub)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .background(Color.white)
-                        .cornerRadius(25)
-                        .shadow(radius: 3)
-                        .multilineTextAlignment(.center)
+                    VStack(spacing: 25){
+                        TextField("Enter Name", text: $name)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(Color.darkBlue)
+                        
+                        TextField("Enter Phone Number", text: $phoneNumber)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                        
+                        TextField("Enter desired email", text: $email)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                        
+                        TextField("linkedin.com/in/", text: $linkedIn)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                        
+                        TextField("Github.com/", text: $gitHub)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(radius: 3)
+                            .multilineTextAlignment(.center)
+                    }
                     
                     Spacer()
                     

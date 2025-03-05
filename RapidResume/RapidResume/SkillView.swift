@@ -22,21 +22,36 @@ struct SkillView: View {
         NavigationStack {
             
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
-                               startPoint: .top,
-                               endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
                 
                 ScrollView {
+                    
+                    Text("Skills")
+                        .fontWeight(.heavy)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        
+                        .font(.custom("Poppins-Bold", size: 48))
+                        .padding(.bottom, 5)
+                    
+                    Text("What makes you stand out?")
+                        .fontWeight(.heavy)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        
+                        .font(.custom("Poppins-Bold", size: 16))
+                        .padding(.bottom, 5)
+                    
                     VStack(spacing: 15) {
                         
-                        Text("Skills")
-                            .font(.title)
-                            .fontWeight(.heavy)
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
-                            .padding(.top, 20)
+                        
                         
                         Spacer()
                         
@@ -50,7 +65,7 @@ struct SkillView: View {
                         
                         Rectangle()
                             .frame(height: 2)
-                            .foregroundColor(Color.darkBlue)
+                            .foregroundColor(Color.paleBlue)
                             .padding(.horizontal, 40)
                         
                         TextField("Skill 1", text: $entry1)
@@ -147,9 +162,9 @@ struct SkillView: View {
                             Text("Save Skill Category")
                                 .padding()
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.darkBlue)
                                 .frame(maxWidth: 200)
-                                .background(Color.black)
+                                .background(Color.paleBlue)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                         }

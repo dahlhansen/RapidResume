@@ -18,21 +18,35 @@ struct ExperienceView: View {
         
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.paleBlue, Color.darkBlue]),
-                               startPoint: .top,
-                               endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
                 
                 ScrollView {
-                    VStack(spacing: 15) {
+                    
+                    Text("Work Experience")
+                        .fontWeight(.heavy)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
                         
-                        Text("Work Experience")
-                            .font(.title)
-                            .fontWeight(.heavy)
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
-                            .padding(.top, 20)
+                        .font(.custom("Poppins-Bold", size: 48))
+                        .padding(.bottom, 5)
+                    
+                    Text("Your career path?")
+                        .fontWeight(.heavy)
+                        .fontDesign(.rounded)
+                        .foregroundColor(.electricYellow)
+                        .multilineTextAlignment(.center)
+                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        
+                        .font(.custom("Poppins-Bold", size: 16))
+                        .padding(.bottom, 5)
+                    
+                    VStack(spacing: 15) {
+                    
                         
                         Spacer()
                         
@@ -111,9 +125,9 @@ struct ExperienceView: View {
                             Text("Add Experience")
                                 .padding()
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.darkBlue)
                                 .frame(maxWidth: 200)
-                                .background(Color.black)
+                                .background(Color.paleBlue)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                         }
