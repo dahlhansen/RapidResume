@@ -53,6 +53,12 @@ class Resume(BaseModel):
     experiences: List[ExperienceEntry]
     activities: List[ActivityEntry]
 
+#Starting point for api
+@app.get("/")
+def home():
+    return {"message": "Welcome to RapidResume API!"}
+
+
 #Post request to submit resume
 @app.post("/submit_resume/")
 async def submit_resume(resume: Resume):
