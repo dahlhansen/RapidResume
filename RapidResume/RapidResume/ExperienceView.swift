@@ -18,42 +18,41 @@ struct ExperienceView: View {
         
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
-                               startPoint: .topLeading,
-                               endPoint: .bottomTrailing)
+                Color.customDarkGray
                     .edgesIgnoringSafeArea(.all)
                 
                 ScrollView {
                     
+                    Image(systemName: "briefcase.fill")
+                        .resizable()
+                        .frame(width: 42, height: 43)
+                        .foregroundStyle(Color.white)
+                    
                     Text("Work Experience")
                         .fontWeight(.heavy)
                         .fontDesign(.rounded)
-                        .foregroundColor(.electricYellow)
+                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
-                        
-                        .font(.custom("Poppins-Bold", size: 48))
+                        .font(.custom("SF Pro", size: 36))
                         .padding(.bottom, 5)
                     
-                    Text("Your career path?")
-                        .fontWeight(.heavy)
+                    Text("What does your career look like?")
                         .fontDesign(.rounded)
-                        .foregroundColor(.electricYellow)
+                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
-                        
                         .font(.custom("Poppins-Bold", size: 16))
-                        .padding(.bottom, 5)
+                        .padding(.bottom, 10)
                     
-                    VStack(spacing: 15) {
+                    VStack(spacing: 20) {
                     
-                        
                         Spacer()
                         
                         TextField("Job Title / Role", text: $role)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .background(Color.white)
-                            .cornerRadius(25)
+                            .cornerRadius(10)
                             .shadow(radius: 3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
@@ -61,7 +60,7 @@ struct ExperienceView: View {
                         TextField("Company Name", text: $company)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .background(Color.white)
-                            .cornerRadius(25)
+                            .cornerRadius(10)
                             .shadow(radius: 3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
@@ -69,15 +68,15 @@ struct ExperienceView: View {
                         TextField("Location", text: $location)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .background(Color.white)
-                            .cornerRadius(25)
+                            .cornerRadius(10)
                             .shadow(radius: 3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
 
-                        TextField("Dates (e.g., Feb. 2024 - Present)", text: $dates)
+                        TextField("Dates", text: $dates)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .background(Color.white)
-                            .cornerRadius(25)
+                            .cornerRadius(10)
                             .shadow(radius: 3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
@@ -85,7 +84,7 @@ struct ExperienceView: View {
                         TextField("First Responsibility", text: $detail1)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .background(Color.white)
-                            .cornerRadius(25)
+                            .cornerRadius(10)
                             .shadow(radius: 3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
@@ -93,7 +92,7 @@ struct ExperienceView: View {
                         TextField("Second Responsibility", text: $detail2)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .background(Color.white)
-                            .cornerRadius(25)
+                            .cornerRadius(10)
                             .shadow(radius: 3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
@@ -101,44 +100,25 @@ struct ExperienceView: View {
                         TextField("Third Responsibility", text: $detail3)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .background(Color.white)
-                            .cornerRadius(25)
+                            .cornerRadius(10)
                             .shadow(radius: 3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
-
-                        Button(action: {
-                            let details = [detail1, detail2, detail3].filter { !$0.isEmpty }
-                            
-                            if !role.isEmpty && !company.isEmpty && !location.isEmpty && !dates.isEmpty && !details.isEmpty {
-                                let experience = ExperienceEntry(role: role, dates: dates, company: company, location: location, details: details)
-                                experiences.append(experience)
-                                
-                                role = ""
-                                company = ""
-                                location = ""
-                                dates = ""
-                                detail1 = ""
-                                detail2 = ""
-                                detail3 = ""
-                            }
-                        }) {
-                            Text("Add Experience")
-                                .padding()
-                                .font(.headline)
-                                .foregroundColor(.darkBlue)
-                                .frame(maxWidth: 200)
-                                .background(Color.paleBlue)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                        }
-                        .padding(.top, 10)
-                        
+                    }
+                    .padding(.top, 10)
+                    .padding(.bottom, 40)
+                    .background(Color.customDark)
+                    .cornerRadius(25)
+                    
+                    Spacer()
+                    
+                    VStack {
                         if !experiences.isEmpty {
                             Text("Your Work Experience")
-                                .font(.title2)
-                                .fontWeight(.bold)
+                                .font(.custom("SF Pro", size: 20))
+                                .fontWeight(.regular)
                                 .padding(.top)
-                                .foregroundColor(.electricYellow)
+                                .foregroundColor(.white)
                             
                             VStack(spacing: 10) {
                                 ForEach(experiences.indices, id: \.self) { index in
@@ -154,29 +134,63 @@ struct ExperienceView: View {
                                 }
                             }
                         }
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            vm.resume.experiences = experiences
-                            navigateNext = true
-                        }) {
-                            Text("Next")
-                                .padding()
-                                .font(.headline)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: 200)
-                                .background(Color.electricYellow)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                        }
-                        .navigationDestination(isPresented: $navigateNext) {
-                            ActivitiesView()
-                        }
-                        .padding(.bottom, 20)
                     }
-                    .padding(.top, 10)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.customDark)
+                    .cornerRadius(25)
+                    
+                    VStack {
+                        HStack(spacing: 20) {
+                            
+                            Button(action: {
+                                let details = [detail1, detail2, detail3].filter { !$0.isEmpty }
+                                
+                                if !role.isEmpty && !company.isEmpty && !location.isEmpty && !dates.isEmpty && !details.isEmpty {
+                                    let experience = ExperienceEntry(role: role, dates: dates, company: company, location: location, details: details)
+                                    experiences.append(experience)
+                                    
+                                    role = ""
+                                    company = ""
+                                    location = ""
+                                    dates = ""
+                                    detail1 = ""
+                                    detail2 = ""
+                                    detail3 = ""
+                                }
+                            }) {
+                                Text("Add Experience")
+                                    .padding()
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: 180)
+                                    .background(Color.customBlack)
+                                    .cornerRadius(25)
+                                    .shadow(radius: 5)
+                            }
+                            .padding(.bottom, 20)
+                            
+                            Button(action: {
+                                vm.resume.experiences = experiences
+                                navigateNext = true
+                            }) {
+                                Text("Next")
+                                    .padding()
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: 180)
+                                    .background(Color.customLightBlue)
+                                    .cornerRadius(25)
+                                    .shadow(radius: 5)
+                            }
+                            .navigationDestination(isPresented: $navigateNext) {
+                                ActivitiesView()
+                            }
+                            .padding(.bottom, 20)
+                        }
+                    }
+                    .padding(.top, 25)
                 }
+                .frame(width: 375)
             }
         }
     }
@@ -190,26 +204,15 @@ struct ExperienceRow: View {
     var experience: ExperienceEntry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack {
             Text(experience.role)
-                .font(.headline)
-                .foregroundColor(.darkBlue)
-            Text(experience.company)
-                .font(.subheadline)
-                .foregroundColor(.darkBlue.opacity(0.8))
-            Text(experience.dates)
-                .font(.footnote)
-                .foregroundColor(.darkBlue.opacity(0.6))
-            Text(experience.details.joined(separator: "\n• "))
-                .font(.subheadline)
-                .foregroundColor(.darkBlue.opacity(0.9))
+                .font(.custom("SF Pro", size: 16))
+                .foregroundColor(.white)
         }
+        .frame(width: 300, height: 35)
+        .background(Color.customGray)
+        .cornerRadius(5)
         .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.paleBlue)
-        .cornerRadius(12)
-        .shadow(radius: 3)
-        .padding(.horizontal)
     }
 }
 

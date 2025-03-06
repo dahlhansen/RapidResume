@@ -1,10 +1,3 @@
-//
-//  FinalizeResumeView.swift
-//  RapidResume
-//
-//  Created by Frederik Dahl Hansen on 27/02/2025.
-//
-
 import SwiftUI
 
 struct FinalizeResumeView: View {
@@ -15,172 +8,103 @@ struct FinalizeResumeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
-                               startPoint: .topLeading,
-                               endPoint: .bottomTrailing)
+                Color.customDarkGray
                     .edgesIgnoringSafeArea(.all)
                 
                 ScrollView {
                     VStack(spacing: 15) {
                         
+                        Image(systemName: "doc.plaintext.fill")
+                            .resizable()
+                            .frame(width: 42, height: 43)
+                            .foregroundStyle(Color.white)
+                        
                         Text("Finalize Your Resume")
-                            .font(.title)
                             .fontWeight(.heavy)
-                            .foregroundColor(.black)
+                            .fontDesign(.rounded)
+                            .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                            .font(.custom("SF Pro", size: 36))
                             .padding(.top, 20)
                         
                         Spacer()
                         
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("Personal Info")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.electricYellow)
+                        ResumeSection(title: "Personal Info") {
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Name: \(vm.resume.name)")
+                                Text("Phone: \(vm.resume.phone)")
+                                Text("Email: \(vm.resume.email)")
+                                Text("LinkedIn: \(vm.resume.linkedin)")
+                                Text("GitHub: \(vm.resume.github)")
+                            }
+                            .frame(width: 300, alignment: .leading)
+                            .foregroundStyle(Color.white)
                             
-                            Text("Name: \(vm.resume.name)")
-                            Text("Phone: \(vm.resume.phone)")
-                            Text("Email: \(vm.resume.email)")
-                            Text("LinkedIn: \(vm.resume.linkedin)")
-                            Text("GitHub: \(vm.resume.github)")
                         }
-                        .padding()
-                        .background(Color.paleBlue.opacity(0.5))
-                        .cornerRadius(12)
-                        .shadow(radius: 3)
-                        .padding(.horizontal, 40)
                         
-                        if !vm.resume.education.isEmpty {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text("Education")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.electricYellow)
-                                
-                                ForEach(vm.resume.education, id: \.institution) { edu in
-                                    VStack(alignment: .leading) {
-                                        Text("\(edu.degree) at \(edu.institution)")
-                                            .font(.headline)
-                                        Text("\(edu.dates) - \(edu.location)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                        Text(edu.details.joined(separator: "\n• "))
+                        VStack {
+                            if !vm.resume.education.isEmpty {
+                                ResumeSection(title: "Education") {
+                                    ForEach(vm.resume.education, id: \.institution) { edu in
+                                        ResumeRow(title: "\(edu.degree) at \(edu.institution)", subtitle: "\(edu.dates) - \(edu.location)", details: edu.details)
                                     }
-                                    .padding(.top, 5)
                                 }
                             }
-                            .padding()
-                            .background(Color.paleBlue.opacity(0.5))
-                            .cornerRadius(12)
-                            .shadow(radius: 3)
-                            .padding(.horizontal, 40)
                         }
+                        .frame(width: 300, alignment: .leading)
+                        .foregroundStyle(Color.white)
                         
-                        if !vm.resume.experiences.isEmpty {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text("Work Experience")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.electricYellow)
-                                
-                                ForEach(vm.resume.experiences, id: \.company) { exp in
-                                    VStack(alignment: .leading) {
-                                        Text("\(exp.role) at \(exp.company)")
-                                            .font(.headline)
-                                        Text("\(exp.dates) - \(exp.location)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                        Text(exp.details.joined(separator: "\n• "))
+                        VStack {
+                            if !vm.resume.experiences.isEmpty {
+                                ResumeSection(title: "Work Experience") {
+                                    ForEach(vm.resume.experiences, id: \.company) { exp in
+                                        ResumeRow(title: "\(exp.role) at \(exp.company)", subtitle: "\(exp.dates) - \(exp.location)", details: exp.details)
                                     }
-                                    .padding(.top, 5)
                                 }
                             }
-                            .padding()
-                            .background(Color.paleBlue.opacity(0.5))
-                            .cornerRadius(12)
-                            .shadow(radius: 3)
-                            .padding(.horizontal, 40)
                         }
+                        .frame(width: 300, alignment: .leading)
+                        .foregroundStyle(Color.white)
                         
-                        if !vm.resume.projects.isEmpty {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text("Projects")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.electricYellow)
-                                
-                                ForEach(vm.resume.projects, id: \.title) { project in
-                                    VStack(alignment: .leading) {
-                                        Text(project.title)
-                                            .font(.headline)
-                                        Text("Tech Stack: \(project.tech_stack)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                        Text("\(project.dates)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                        Text(project.bullets.joined(separator: "\n• "))
+                        VStack {
+                            if !vm.resume.projects.isEmpty {
+                                ResumeSection(title: "Projects") {
+                                    ForEach(vm.resume.projects, id: \.title) { project in
+                                        ResumeRow(title: project.title, subtitle: "Tech Stack: \(project.tech_stack) | \(project.dates)", details: project.bullets)
                                     }
-                                    .padding(.top, 5)
                                 }
                             }
-                            .padding()
-                            .background(Color.paleBlue.opacity(0.5))
-                            .cornerRadius(12)
-                            .shadow(radius: 3)
-                            .padding(.horizontal, 40)
                         }
+                        .frame(width: 300, alignment: .leading)
+                        .foregroundStyle(Color.white)
                         
-                        
-                        if !vm.resume.skills.isEmpty {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text("Skills")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.electricYellow)
-                                
-                                ForEach(vm.resume.skills, id: \.category) { skill in
-                                    VStack(alignment: .leading) {
-                                        Text(skill.category)
-                                            .font(.headline)
-                                        Text(skill.entries.joined(separator: ", "))
+                        VStack {
+                            if !vm.resume.skills.isEmpty {
+                                ResumeSection(title: "Skills") {
+                                    ForEach(vm.resume.skills, id: \.category) { skill in
+                                        ResumeRow(title: skill.category, subtitle: "", details: skill.entries)
                                     }
-                                    .padding(.top, 5)
                                 }
                             }
-                            .padding()
-                            .background(Color.paleBlue.opacity(0.5))
-                            .cornerRadius(12)
-                            .shadow(radius: 3)
-                            .padding(.horizontal, 40)
                         }
+                        .frame(width: 300, alignment: .leading)
+                        .foregroundStyle(Color.white)
                         
-                        if !vm.resume.activities.isEmpty {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text("Extracurricular Activities")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.electricYellow)
-                                
-                                ForEach(vm.resume.activities, id: \.title) { activity in
-                                    VStack(alignment: .leading) {
-                                        Text("\(activity.title) at \(activity.organization)")
-                                            .font(.headline)
-                                        Text("\(activity.dates) - \(activity.location)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                        Text(activity.details.joined(separator: "\n• "))
+                        
+                        VStack {
+                            if !vm.resume.activities.isEmpty {
+                                ResumeSection(title: "Extracurricular Activities") {
+                                    ForEach(vm.resume.activities, id: \.title) { activity in
+                                        ResumeRow(title: "\(activity.title) at \(activity.organization)", subtitle: "\(activity.dates) - \(activity.location)", details: activity.details)
                                     }
-                                    .padding(.top, 5)
                                 }
                             }
-                            .padding()
-                            .background(Color.paleBlue.opacity(0.5))
-                            .cornerRadius(12)
-                            .shadow(radius: 3)
-                            .padding(.horizontal, 40)
                         }
+                        .frame(width: 300, alignment: .leading)
+                        .foregroundStyle(Color.white)
+                        
+                        
                         
                         Button(action: {
                             vm.submitResume(resume: vm.resume)
@@ -189,20 +113,75 @@ struct FinalizeResumeView: View {
                             Text("Create Resume")
                                 .padding()
                                 .font(.headline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.white)
                                 .frame(maxWidth: 200)
-                                .background(Color.electricYellow)
-                                .cornerRadius(10)
+                                .background(Color.customLightBlue)
+                                .cornerRadius(25)
                                 .shadow(radius: 5)
                         }
                         .navigationDestination(isPresented: $navigateNext) {
                             ViewResume()
                         }
-                        .padding(.bottom, 20)
+                        
                     }
                     .padding(.top, 10)
                 }
+                .frame(width: 375)
             }
         }
     }
+}
+
+struct ResumeSection<Content: View>: View {
+    var title: String
+    var content: () -> Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(title)
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.electricYellow)
+            
+            content()
+        }
+        .padding()
+        .background(Color.customDark)
+        .cornerRadius(25)
+        .shadow(radius: 3)
+        .padding(.horizontal, 40)
+    }
+}
+
+struct ResumeRow: View {
+    var title: String
+    var subtitle: String
+    var details: [String]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(title)
+                .font(.custom("SF Pro", size: 16))
+                .foregroundColor(.white)
+            if !subtitle.isEmpty {
+                Text(subtitle)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+            if !details.isEmpty {
+                Text(details.joined(separator: "\n• "))
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.9))
+            }
+        }
+        .frame(width: 300, height: details.isEmpty ? 35 : nil)
+        .padding()
+        .background(Color.customGray)
+        .cornerRadius(5)
+    }
+}
+
+#Preview {
+    FinalizeResumeView()
+        .environmentObject(ResumeViewModel())
 }

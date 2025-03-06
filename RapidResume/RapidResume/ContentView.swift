@@ -1,92 +1,74 @@
-//
-//  ContentView.swift
-//  RapidResume
-//
-//  Created by Frederik Dahl Hansen on 26/02/2025.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     
     @StateObject var vm = ResumeViewModel()
-    
-    
 
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
-                               startPoint: .topLeading,
-                               endPoint: .bottomTrailing)
+                Color.customDarkGray
                     .edgesIgnoringSafeArea(.all)
 
                 VStack {
                     
-                    
-                    
                     Spacer()
                     
-                    Image("rrlogo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 190, height: 200)
-                    
-                    Text("RAPID RESUME")
-                        .fontWeight(.heavy)
-                        .fontDesign(.rounded)
-                        .foregroundColor(.electricYellow)
-                        .multilineTextAlignment(.center)
-                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
-                        
-                        .font(.custom("Poppins-Bold", size: 48))
-                        .padding(.bottom, 5)
-                    
-                    
 
-                    Text("Effortless Resume Creation")
+                    Image("rrLogo")
+                        .resizable()
+                        .frame(width: 106, height: 167)
                     
-                        .fontWeight(.heavy)
-                        .foregroundColor(.electricYellow)
+                    Spacer()
+
+                    
+                    Text("Rapid Resume")
+                        .font(.custom("SF Pro", size: 44))
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
                         .multilineTextAlignment(.center)
-                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        .padding(.bottom, 1)
+                    
+                    Text("Effortless Resume Creation")
+                        .font(.custom("SF Pro", size: 20))
+                        .foregroundColor(.softYellow)
+                        .multilineTextAlignment(.center)
                         .padding(.bottom, 50)
-                        .font(.custom("Poppins-Bold", size: 16))
                     
-                    
-                    
+                   
                     VStack(spacing: 15) {
+                    
+                        
                         NavigationLink(destination: InitialEntryView()) {
                             Text("Get Started")
                                 .font(.headline)
-                                .foregroundColor(Color.paleBlue)
+                                .foregroundColor(.white)
                                 .frame(width: 220, height: 50)
-                                .background(Color.mediumBlue)
+                                .background(Color.customLightBlue)
                                 .cornerRadius(25)
-                                .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 2)
-                                .padding(.top, 20)
+                                .padding(.bottom, 3)
                         }
-                        
-                        NavigationLink(destination: InitialEntryView()) {
+
+                        NavigationLink(destination: AboutView()) {
                             Text("Learn More")
                                 .font(.headline)
-                                .foregroundColor(Color.darkBlue)
+                                .foregroundColor(.white)
                                 .frame(width: 220, height: 50)
-                                .background(Color.paleBlue)
+                                .background(Color.black)
                                 .cornerRadius(25)
-                                .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 2)
-                                .padding(.top, 20)
                         }
                     }
+                    .padding(.bottom, 100)
+
+                    Spacer()
                 }
                 .padding()
-                .offset(y: -150)
             }
         }
         .environmentObject(vm)
         .navigationTitle("Resume")
-                .navigationBarBackButtonHidden(false)
-                .tint(.yellow)
+        .navigationBarBackButtonHidden(true)
+        .tint(.white)
     }
 }
 

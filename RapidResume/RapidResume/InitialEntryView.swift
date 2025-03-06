@@ -1,10 +1,3 @@
-//
-//  InitialEntryView.swift
-//  RapidResume
-//
-//  Created by Frederik Dahl Hansen on 26/02/2025.
-//
-
 import SwiftUI
 
 struct InitialEntryView: View {
@@ -24,104 +17,110 @@ struct InitialEntryView: View {
         NavigationStack {
             
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color.mediumBlue, Color.darkBlue]),
-                               startPoint: .topLeading,
-                               endPoint: .bottomTrailing)
+                Color.customDarkGray
                     .edgesIgnoringSafeArea(.all)
                 
-                VStack {
-                    
-                    Text("Personal Info")
-                        .fontWeight(.heavy)
-                        .fontDesign(.rounded)
-                        .foregroundColor(.electricYellow)
-                        .multilineTextAlignment(.center)
-                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                
+                
+                ScrollView {
+                    VStack {
                         
-                        .font(.custom("Poppins-Bold", size: 48))
-                        .padding(.bottom, 5)
-                    
-                    Text("Let's get the personal info out of the way!")
-                        .fontWeight(.heavy)
-                        .fontDesign(.rounded)
-                        .foregroundColor(.electricYellow)
-                        .multilineTextAlignment(.center)
-                        .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                        Image(systemName: "person.fill")
+                            .resizable()
+                            .frame(width: 42, height: 43)
+                            .foregroundStyle(Color.white)
+                            .padding(.top, 50)
                         
-                        .font(.custom("Poppins-Bold", size: 16))
-                    
-                    Spacer()
-                    
-                    VStack(spacing: 25){
-                        TextField("Enter Name", text: $name)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .shadow(radius: 3)
+                        
+                        Text("Personal Info")
+                            .fontWeight(.heavy)
+                            .fontDesign(.rounded)
+                            .foregroundColor(.white)
                             .multilineTextAlignment(.center)
-                            .foregroundStyle(Color.darkBlue)
+                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                            .font(.custom("SF Pro", size: 36))
+                            .padding(.bottom, 1)
                         
-                        TextField("Enter Phone Number", text: $phoneNumber)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .background(Color.white)
-                            .cornerRadius(25)
-                            .shadow(radius: 3)
+                        Text("Let's get the personal info out of the way!")
+                            .fontDesign(.rounded)
+                            .foregroundColor(.white)
                             .multilineTextAlignment(.center)
+                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                            .font(.custom("SF Pro", size: 16))
+                            .padding(.bottom, 50)
                         
-                        TextField("Enter desired email", text: $email)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .background(Color.white)
-                            .cornerRadius(25)
-                            .shadow(radius: 3)
-                            .multilineTextAlignment(.center)
+                        Spacer()
                         
-                        TextField("linkedin.com/in/", text: $linkedIn)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .background(Color.white)
-                            .cornerRadius(25)
-                            .shadow(radius: 3)
-                            .multilineTextAlignment(.center)
+                        VStack(spacing: 20) {
+                            TextField("Enter Name", text: $name)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 3)
+                                .multilineTextAlignment(.center)
+                            
+                            TextField("Enter Phone Number", text: $phoneNumber)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 3)
+                                .multilineTextAlignment(.center)
+                            
+                            TextField("Enter Desired Email", text: $email)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 3)
+                                .multilineTextAlignment(.center)
+                            
+                            TextField("linkedin.com/in/", text: $linkedIn)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 3)
+                                .multilineTextAlignment(.center)
+                            
+                            TextField("github.com/", text: $gitHub)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 3)
+                                .multilineTextAlignment(.center)
+                        }
+                        .padding(.horizontal, 40)
+                        .padding(.vertical, 20)
+                        .background(Color.customDark)
+                        .cornerRadius(25)
                         
-                        TextField("Github.com/", text: $gitHub)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .background(Color.white)
-                            .cornerRadius(25)
-                            .shadow(radius: 3)
-                            .multilineTextAlignment(.center)
+                        VStack {
+                            
+                            Button(action: {
+                                vm.resume.name = name
+                                vm.resume.phone = phoneNumber
+                                vm.resume.email = email
+                                vm.resume.linkedin = linkedIn
+                                vm.resume.github = gitHub
+                                navigateNext = true
+                            }) {
+                                Text("Next")
+                                    .padding()
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: 375)
+                                    .background(Color.customLightBlue)
+                                    .cornerRadius(25)
+                                    .shadow(radius: 5)
+                            }
+                            .navigationDestination(isPresented: $navigateNext) {
+                                EducationView()
+                            }
+                            
+                        }
+                        .padding(.top, 50)
                     }
-                    
-                    Spacer()
-                    
-                    
-                    
-                    
-                    Button(action: {
-                        vm.resume.name = name
-                        vm.resume.phone = phoneNumber
-                        vm.resume.email = email
-                        vm.resume.linkedin = linkedIn
-                        vm.resume.github = gitHub
-                        navigateNext = true
-                        
-                        print(vm.resume)
-                    }){
-                        Text("Next")
-                            .padding()
-                            .font(.headline)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: 200)
-                            .background(Color.electricYellow)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                    }
-                    
-                    .navigationDestination(isPresented: $navigateNext) {
-                        EducationView()
-                    }
-                    
                     
                 }
-                .padding()
+                .frame(width: 375)
             }
         }
     }
@@ -129,6 +128,5 @@ struct InitialEntryView: View {
 
 #Preview {
     InitialEntryView()
+        .environmentObject(ResumeViewModel())
 }
-
-

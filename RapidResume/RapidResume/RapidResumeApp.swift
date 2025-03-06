@@ -11,7 +11,7 @@ import SwiftUI
 struct RapidResumeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ViewResume()
         }
     }
 

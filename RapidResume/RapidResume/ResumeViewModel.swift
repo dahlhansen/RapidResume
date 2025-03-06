@@ -26,7 +26,7 @@ class ResumeViewModel: ObservableObject {
     
     func submitResume(resume: Resume) {
         
-        let url = URL(string: "http://0.0.0.0:8000/submit_resume/")!
+        let url = URL(string: "https://rapidresume-ki73.onrender.com/submit_resume/")!
         
         
         var request = URLRequest(url: url)
