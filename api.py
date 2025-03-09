@@ -53,6 +53,24 @@ class Resume(BaseModel):
     experiences: List[ExperienceEntry]
     activities: List[ActivityEntry]
 
+class CoverLetter(BaseModel):
+    name: str
+    phone: str
+    email: str
+    linkedin: str
+    github: str
+    date: str
+    hiring_manager_name: str
+    company_name: str
+    company_address: str
+    salutation_name: str
+    paragraph1: str
+    paragraph2: str
+    paragraph3: str
+    paragraph4: str
+    closing_paragraph: str
+    full_name: str  
+
 #Starting point for api
 @app.get("/")
 def home():
@@ -72,7 +90,7 @@ async def get_pdf():
     return FileResponse(file_path, media_type="application/pdf", filename="resume.pdf")
 
 
-#Function to create resume
+#Resume
 def createResume(data: Resume):
     env = Environment(loader=FileSystemLoader("."))
 
@@ -91,6 +109,30 @@ def createResume(data: Resume):
         print(f"Jinja2 Template Error: {e.message}")
         print(f"Problem in File: {e.filename} at Line {e.lineno}")
 
+
+#Cover Letter
+def createCoverLetter(data: CoverLetter):
+    env = Environment(loader=FileSystemLoader("."))
+
+    template = env.get_template("cover_letter_template.tex")
+
+    try:
+        rendered_tex = template.render(data)
+
+        with open("cover_letter_output.tex", "w", encoding="utf-8") as f:
+            f.write(rendered_tex)
+
+        subprocess.run(["pdflatex", "cover_letter_output.tex"], check=True)
+        print("PDF generated: cover_letter_output.pdf")
+
+    except jinja2.TemplateSyntaxError as e:
+        print(f"Jinja2 Template Error: {e.message}")
+        print(f"Problem in File: {e.filename} at Line {e.lineno}")
+
+@app.post("/submit_cover_letter/")
+async def submit_cover_letter(cover_letter: CoverLetter):
+    createCoverLetter(cover_letter)
+    return {"message": "Cover Letter submitted successfully!"}
 
 if __name__ == "__main__":
     os.system("uvicorn api:app --host 0.0.0.0 --port 8000 --reload --log-level debug")
