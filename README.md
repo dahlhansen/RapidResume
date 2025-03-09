@@ -35,6 +35,7 @@ With **RapidResume**, you can effortlessly craft a professional, well-structured
 |---------|-----------------|----------------------------------------|
 | **POST** | `/submit_resume` | Submit resume data (JSON format)     |
 | **GET**  | `/get_pdf`      | Retrieve generated PDF resume         |
+| **POST** | `/submit_cover_letter` | Submit Cover Letter data (JSON format)     |
 
 ## 📌 Future Enhancements  
 - [ ] Allow user to select order of major categories.  
