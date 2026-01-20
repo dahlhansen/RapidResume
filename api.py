@@ -9,7 +9,6 @@ import os
 
 app = FastAPI()
 
-#basemodel used to validate data types
 class EducationEntry(BaseModel):
     institution: str
     location: str
@@ -71,49 +70,44 @@ class CoverLetter(BaseModel):
     closing_paragraph: str
     full_name: str  
 
-#Starting point for api
 @app.get("/")
 def home():
     return {"message": "Welcome to RapidResume API!"}
 
-
-#Post request to submit resume
 @app.post("/submit_resume/")
 async def submit_resume(resume: Resume):
     createResume(resume)
     return {"message": "Resume submitted successfully!"}
 
-#Send pdf file to user in frontend
 @app.get("/get_pdf")
 async def get_pdf():
-    file_path = "resume_output.pdf"
-    return FileResponse(file_path, media_type="application/pdf", filename="resume.pdf")
+    file_path = "Resume - Frederik Dahl Hansen.pdf"
+    return FileResponse(
+        file_path,
+        media_type="application/pdf",
+        filename="Resume - Frederik Dahl Hansen.pdf"
+    )
 
-
-#Resume
 def createResume(data: Resume):
     env = Environment(loader=FileSystemLoader("."))
-
     template = env.get_template("resume_template.tex")
+
+    tex_file = "Resume - Frederik Dahl Hansen.tex"
 
     try:
         rendered_tex = template.render(data)
 
-        with open("resume_output.tex", "w", encoding="utf-8") as f:
+        with open(tex_file, "w", encoding="utf-8") as f:
             f.write(rendered_tex)
 
-        subprocess.run(["pdflatex", "resume_output.tex"], check=True)
-        print("PDF generated: resume_output.pdf")
+        subprocess.run(["pdflatex", tex_file], check=True)
 
     except jinja2.TemplateSyntaxError as e:
         print(f"Jinja2 Template Error: {e.message}")
         print(f"Problem in File: {e.filename} at Line {e.lineno}")
 
-
-#Cover Letter
 def createCoverLetter(data: CoverLetter):
     env = Environment(loader=FileSystemLoader("."))
-
     template = env.get_template("cover_letter_template.tex")
 
     try:
@@ -123,7 +117,6 @@ def createCoverLetter(data: CoverLetter):
             f.write(rendered_tex)
 
         subprocess.run(["pdflatex", "cover_letter_output.tex"], check=True)
-        print("PDF generated: cover_letter_output.pdf")
 
     except jinja2.TemplateSyntaxError as e:
         print(f"Jinja2 Template Error: {e.message}")
